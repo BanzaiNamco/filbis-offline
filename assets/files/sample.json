@@ -1,0 +1,17 @@
+{
+    "q1": {
+        "question": "What is the capital of France?",
+        "choices": ["London", "Paris", "Rome", "Berlin"],
+        "next": "q2"
+    },
+    "q2": {
+        "question": "What is the capital of Germany?",
+        "choices": ["London", "Paris", "Rome", "Berlin"],
+        "next": "q3"
+    },
+    "q3": {
+        "question": "What is the capital of Italy?",
+        "choices": ["London", "Paris", "Rome", "Berlin"],
+        "next": "q4"
+    }
+}

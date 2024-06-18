@@ -1,0 +1,37 @@
+name: flutter_application_1
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.4.1 <4.0.0'
+
+isar_version: &isar_version 3.1.7 # define the version to be used
+
+dependencies:
+  flutter:
+    sdk: flutter
+  isar: 
+    version: *isar_version
+    hosted: https://pub.isar-community.dev/
+  isar_flutter_libs: # contains Isar Core
+    version: *isar_version
+    hosted: https://pub.isar-community.dev/
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  isar_generator: 
+    version: *isar_version
+    hosted: https://pub.isar-community.dev/
+  build_runner: any
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/images/
+    - assets/files/
