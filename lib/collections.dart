@@ -1,16 +1,18 @@
 import 'package:isar/isar.dart';
 
 @Collection()
-class mental_health_module {
+class module {
   int id = Isar.autoIncrement;
-  confirm_bothered? confirmBothered;
+  String name = "";
+  List<sub_module>? sub_modules;
 }
 
 @Collection()
-class confirm_bothered {
+class sub_module {
   int id = Isar.autoIncrement;
   qck_reply? qckReply;
   question_translation? questionTranslation;
+  String name = "";
 }
 
 @Collection()
