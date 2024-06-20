@@ -6,17 +6,17 @@ version: 0.1.0
 environment:
   sdk: '>=3.4.1 <4.0.0'
 
-isar_version: &isar_version 3.1.7 # define the version to be used
-
 dependencies:
   flutter:
     sdk: flutter
+  http: ^1.2.1
   isar: 
-    version: *isar_version
+    version: 3.1.7
     hosted: https://pub.isar-community.dev/
   isar_flutter_libs: # contains Isar Core
-    version: *isar_version
+    version: 3.1.7
     hosted: https://pub.isar-community.dev/
+  path_provider: ^2.0.5
 
 
 
@@ -25,7 +25,7 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^4.0.0
   isar_generator: 
-    version: *isar_version
+    version: 3.1.7
     hosted: https://pub.isar-community.dev/
   build_runner: any
 

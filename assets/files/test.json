@@ -1,0 +1,64 @@
+{
+    "modules": [
+      {
+        "name": "mental_health_module",
+        "sub_modules": [
+          {
+            "name": "confirm_bothered",
+            "qckReplyId": 1,
+            "questionTranslation": {
+              "cebuano_response": "Is there something that bothers you? After this chat, you should visit your school counselor to discuss some thoughts running through your mind. What do you think?",
+              "english_response": "Is there something that bothers you? After this chat, you should visit your school counselor to discuss some thoughts running through your mind. What do you think?",
+              "tagalog_response": "Is there something that bothers you? After this chat, you should visit your school counselor to discuss some thoughts running through your mind. What do you think?"
+            }
+          }
+          // ... other sub_modules
+        ]
+      }
+      // ... other modules
+    ],
+    "qck_replies": [
+        // WHY SO MANY YES OR NO VARIATIONS BRUH
+      {
+        "id": 1,
+        "cebuano_replies": ["Oo", "Dili"],
+        "english_replies": ["Yes", "No"],
+        "tagalog_replies": ["Oo", "Hindi"]
+      },
+      {
+        "id": 2,
+        "cebuano_replies": ["Oo", "Dili"],
+        "english_replies": ["Yes", "No"],
+        "tagalog_replies": ["Meron", "Wala"]
+      },
+      {
+        "id": 3,
+        "cebuano_replies": ["Oo", "Dili", "Wala ko kahinumdum"],
+        "english_replies": ["Yes", "No", "Not sure"],
+        "tagalog_replies": ["Oo", "Hindi", "Hindi sigurado"]
+      },
+      {
+        "id": 4,
+        "cebuano_replies": ["Oo", "Dili", "Usahay"],
+        "english_replies": ["Yes", "No", "Sometimes"],
+        "tagalog_replies": ["Oo", "Hindi", "Minsan"]
+      },
+      {
+        "id": 5,
+        "cebuano_replies": ["Oo", "Dili", "Usahay"],
+        "english_replies": ["Yes", "No", "A little bit"],
+        "tagalog_replies": ["Oo", "Hindi", "Medyo"]
+      },
+      {
+        "id": 6,
+        "cebuano_replies": ["Maglisod ug ginhawa", "Magpuwa-puwa", "Mangatol", "Maghubag", "Mamuwa", "Maghatsing", "Sipon-non", "Ubo-hon", "Kapoyan / Bug-at ang lawas", "Sakit ang ulo", "Kasukaon / Mosuka ko"],
+        "english_replies": ["Difficulty breathing", "Rashes", "Itching", "Swelling", "Redness", "Sneezing", "Runny nose", "Cough", "Fatigue", "Headache", "Nausea and vomiting"],
+        "tagalog_replies": ["Nahihirapang huminga", "Namamantal", "Nangangati", "Namamaga", "Namumula", "Nababahing", "Sinisipon", "Inuubo", "Nanlalambot/ Napapagod", "Nanakit ang ulo", "Naduduwal / Nasusuka"]
+      },
+      {
+        "id": 7,
+        "english_replies": ["Less than 8 hours", "More than 8 hours", "More than 1 day", "More than 3 days", "More than 1 week", "More than 2 weeks"],
+      }
+    ]
+  }
+  
