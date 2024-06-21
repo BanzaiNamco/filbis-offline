@@ -25,7 +25,7 @@ const ModuleSchema = CollectionSchema(
     r'subModule': PropertySchema(
       id: 1,
       name: r'subModule',
-      type: IsarType.object,
+      type: IsarType.objectList,
       target: r'sub_module',
     )
   },
@@ -55,11 +55,17 @@ int _moduleEstimateSize(
   var bytesCount = offsets.last;
   bytesCount += 3 + object.name.length * 3;
   {
-    final value = object.subModule;
-    if (value != null) {
-      bytesCount += 3 +
-          Sub_moduleSchema.estimateSize(
-              value, allOffsets[sub_module]!, allOffsets);
+    final list = object.subModule;
+    if (list != null) {
+      bytesCount += 3 + list.length * 3;
+      {
+        final offsets = allOffsets[sub_module]!;
+        for (var i = 0; i < list.length; i++) {
+          final value = list[i];
+          bytesCount +=
+              Sub_moduleSchema.estimateSize(value, offsets, allOffsets);
+        }
+      }
     }
   }
   return bytesCount;
@@ -72,7 +78,7 @@ void _moduleSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.name);
-  writer.writeObject<sub_module>(
+  writer.writeObjectList<sub_module>(
     offsets[1],
     allOffsets,
     Sub_moduleSchema.serialize,
@@ -89,10 +95,11 @@ Module _moduleDeserialize(
   final object = Module();
   object.id = id;
   object.name = reader.readString(offsets[0]);
-  object.subModule = reader.readObjectOrNull<sub_module>(
+  object.subModule = reader.readObjectList<sub_module>(
     offsets[1],
     Sub_moduleSchema.deserialize,
     allOffsets,
+    sub_module(),
   );
   return object;
 }
@@ -107,10 +114,11 @@ P _moduleDeserializeProp<P>(
     case 0:
       return (reader.readString(offset)) as P;
     case 1:
-      return (reader.readObjectOrNull<sub_module>(
+      return (reader.readObjectList<sub_module>(
         offset,
         Sub_moduleSchema.deserialize,
         allOffsets,
+        sub_module(),
       )) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -401,10 +409,95 @@ extension ModuleQueryFilter on QueryBuilder<Module, Module, QFilterCondition> {
       ));
     });
   }
+
+  QueryBuilder<Module, Module, QAfterFilterCondition> subModuleLengthEqualTo(
+      int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'subModule',
+        length,
+        true,
+        length,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<Module, Module, QAfterFilterCondition> subModuleIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'subModule',
+        0,
+        true,
+        0,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<Module, Module, QAfterFilterCondition> subModuleIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'subModule',
+        0,
+        false,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<Module, Module, QAfterFilterCondition> subModuleLengthLessThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'subModule',
+        0,
+        true,
+        length,
+        include,
+      );
+    });
+  }
+
+  QueryBuilder<Module, Module, QAfterFilterCondition>
+      subModuleLengthGreaterThan(
+    int length, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'subModule',
+        length,
+        include,
+        999999,
+        true,
+      );
+    });
+  }
+
+  QueryBuilder<Module, Module, QAfterFilterCondition> subModuleLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'subModule',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
 }
 
 extension ModuleQueryObject on QueryBuilder<Module, Module, QFilterCondition> {
-  QueryBuilder<Module, Module, QAfterFilterCondition> subModule(
+  QueryBuilder<Module, Module, QAfterFilterCondition> subModuleElement(
       FilterQuery<sub_module> q) {
     return QueryBuilder.apply(this, (query) {
       return query.object(q, r'subModule');
@@ -476,7 +569,8 @@ extension ModuleQueryProperty on QueryBuilder<Module, Module, QQueryProperty> {
     });
   }
 
-  QueryBuilder<Module, sub_module?, QQueryOperations> subModuleProperty() {
+  QueryBuilder<Module, List<sub_module>?, QQueryOperations>
+      subModuleProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'subModule');
     });
