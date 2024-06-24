@@ -6,7 +6,7 @@ part 'collections.g.dart';
 class Module {
   Id id = Isar.autoIncrement;
   late String name;
-  List<sub_module>? subModule;
+  List<sub_module> subModule = List.empty(growable: true);
 }
 
 @embedded
