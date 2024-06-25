@@ -54,18 +54,12 @@ int _moduleEstimateSize(
 ) {
   var bytesCount = offsets.last;
   bytesCount += 3 + object.name.length * 3;
+  bytesCount += 3 + object.subModule.length * 3;
   {
-    final list = object.subModule;
-    if (list != null) {
-      bytesCount += 3 + list.length * 3;
-      {
-        final offsets = allOffsets[sub_module]!;
-        for (var i = 0; i < list.length; i++) {
-          final value = list[i];
-          bytesCount +=
-              Sub_moduleSchema.estimateSize(value, offsets, allOffsets);
-        }
-      }
+    final offsets = allOffsets[sub_module]!;
+    for (var i = 0; i < object.subModule.length; i++) {
+      final value = object.subModule[i];
+      bytesCount += Sub_moduleSchema.estimateSize(value, offsets, allOffsets);
     }
   }
   return bytesCount;
@@ -96,11 +90,12 @@ Module _moduleDeserialize(
   object.id = id;
   object.name = reader.readString(offsets[0]);
   object.subModule = reader.readObjectList<sub_module>(
-    offsets[1],
-    Sub_moduleSchema.deserialize,
-    allOffsets,
-    sub_module(),
-  );
+        offsets[1],
+        Sub_moduleSchema.deserialize,
+        allOffsets,
+        sub_module(),
+      ) ??
+      [];
   return object;
 }
 
@@ -115,11 +110,12 @@ P _moduleDeserializeProp<P>(
       return (reader.readString(offset)) as P;
     case 1:
       return (reader.readObjectList<sub_module>(
-        offset,
-        Sub_moduleSchema.deserialize,
-        allOffsets,
-        sub_module(),
-      )) as P;
+            offset,
+            Sub_moduleSchema.deserialize,
+            allOffsets,
+            sub_module(),
+          ) ??
+          []) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -394,22 +390,6 @@ extension ModuleQueryFilter on QueryBuilder<Module, Module, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Module, Module, QAfterFilterCondition> subModuleIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'subModule',
-      ));
-    });
-  }
-
-  QueryBuilder<Module, Module, QAfterFilterCondition> subModuleIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'subModule',
-      ));
-    });
-  }
-
   QueryBuilder<Module, Module, QAfterFilterCondition> subModuleLengthEqualTo(
       int length) {
     return QueryBuilder.apply(this, (query) {
@@ -569,8 +549,7 @@ extension ModuleQueryProperty on QueryBuilder<Module, Module, QQueryProperty> {
     });
   }
 
-  QueryBuilder<Module, List<sub_module>?, QQueryOperations>
-      subModuleProperty() {
+  QueryBuilder<Module, List<sub_module>, QQueryOperations> subModuleProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'subModule');
     });

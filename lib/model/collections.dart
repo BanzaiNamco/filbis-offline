@@ -1,12 +1,13 @@
 import 'package:isar/isar.dart';
-
 part 'collections.g.dart';
+// Run: dart run build_runner build
+
 
 @collection
 class Module {
   Id id = Isar.autoIncrement;
   late String name;
-  List<sub_module>? subModule;
+  List<sub_module> subModule = List.empty(growable: true);
 }
 
 @embedded
